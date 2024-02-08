@@ -8,23 +8,6 @@ import "../../openzeppelin/token/ERC20/extensions/IERC20Metadata.sol";
 import "../../openzeppelin/utils/Context.sol";
 import "./ERC20Manager.sol";
 
-struct DevState {
-    uint256 stake;
-    uint256 score;
-    uint256 block_number;
-}
-
-struct VoteState {
-    uint256 score;
-    uint256 block_number;
-}
-
-enum Resource{ GPU, CPU, TPU }
-
-struct ResourceStruct {
-    uint256 rate; 
-}
-
 struct ActorStruct {
     uint cpus ; // number of cpus for actor
     uint gpus ; // number of gpus
