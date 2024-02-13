@@ -116,15 +116,15 @@ const HomePage = () => {
                                     <div className='flex bg-[#fff] flex-col w-full'>
 
                                         <div className='flex bg-[#fff] px-8 items-center justify-between w-full mt-[20px]'>
-                                            <span className=' text-[#e45744]' style={{ fontFamily: 'Might' }}>
+                                            <span className=' text-black' style={{ fontFamily: 'Might' }}>
                                                 Supply Infomation
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-[#e45744] my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />                                     
+                                        <div className='flex bg-slate-300 my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />                                     
                                         <div className='flex flex-col items-center justify-center w-full sm:flex-row gap-4'>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
-                                                <span className=' text-[14px] ml-[55px] w-full items-start' style={{ color: 'black', fontFamily: 'Smack' }}>TOTAL SUPPLY</span>
+                                                <span className=' text-[14px] ml-[55px] w-full items-start text-gray-500' style={{ fontFamily: 'Smack' }}>TOTAL SUPPLY</span>
                                                 <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
@@ -135,7 +135,7 @@ const HomePage = () => {
                                                 </div>
                                             </div>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
-                                                <span className=' text-[14px] ml-[55px] w-full items-start' style={{ color: 'black', fontFamily: 'Smack' }}>MAXIUM SUPPLY</span>
+                                                <span className=' text-[14px] ml-[55px] w-full items-start text-gray-500' style={{  fontFamily: 'Smack' }}>MAXIUM SUPPLY</span>
                                                 <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
@@ -154,14 +154,14 @@ const HomePage = () => {
                                     <div className='flex bg-[#fff] flex-col w-full'>
 
                                         <div className='flex bg-[#fff] px-8 items-center justify-between w-full mt-[0px]'>
-                                            <span className=' text-[#e45744]' style={{ fontFamily: 'Might' }}>
+                                            <span className=' text-black' style={{ fontFamily: 'Might' }}>
                                                 Transfer
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-[#e45744] my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
+                                        <div className='flex bg-slate-300 my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
                                         <div className='flex flex-col items-center justify-center mb-2 w-[90%]  m-auto'>
-                                            <span className=' text-[14px] text-start items-start w-full ml-[25px]' style={{ color: 'black', fontFamily: 'Smack' }}>To</span>
+                                            <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{ fontFamily: 'Smack' }}>To</span>
                                             <div className='flex flex-col border rounded-[0.5rem] bg-[#fff] py-2 px-7 w-full' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
                                                 <div className='flex items-center justify-center'>
                                                     <input value={address} className='border-none outline-none appearance-none w-[90%] h-[30px]' type='text' onChange={({ target: { value } }) => {
@@ -172,7 +172,7 @@ const HomePage = () => {
                                         </div>
                                         <div className='flex flex-col items-center justify-center w-full sm:flex-row gap-4'>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
-                                                <span className=' text-[14px] ml-[55px] w-full items-start' style={{ color: 'black', fontFamily: 'Smack' }}>AMOUNT</span>
+                                                <span className=' text-[14px] ml-[55px] w-full items-start text-gray-500' style={{  fontFamily: 'Smack' }}>AMOUNT</span>
                                                 <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
@@ -197,16 +197,16 @@ const HomePage = () => {
                                     <div className='flex bg-[#fff] flex-col w-full'>
 
                                         <div className='flex bg-[#fff] px-8 items-center justify-between w-full mt-[0px]'>
-                                            <span className=' text-[#e45744]' style={{ fontFamily: 'Might' }}>
+                                            <span className=' text-black' style={{ fontFamily: 'Might' }}>
                                                 Staking
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-[#e45744] my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
+                                        <div className='flex bg-slate-300 my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
 
                                         <div className='flex items-center justify-center w-full max-sm:flex-col gap-2'>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[150px]'>
-                                                <span className=' text-[14px] text-start items-start w-full ml-[25px]' style={{ color: 'black', fontFamily: 'Smack' }}>TOTAL</span>
+                                                <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{  fontFamily: 'Smack' }}>TOTAL</span>
 
                                                 <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
 
@@ -221,7 +221,7 @@ const HomePage = () => {
                                                 </div>
                                             </div>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[150px]'>
-                                                <span className=' text-[14px] text-start items-start w-full ml-[25px]' style={{ color: 'black', fontFamily: 'Smack' }}>AMOUNT</span>
+                                                <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{  fontFamily: 'Smack' }}>AMOUNT</span>
 
                                                 <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
 
