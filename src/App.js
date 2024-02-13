@@ -5,18 +5,8 @@ import { Routes } from "react-router-dom";
 import React from "react";
 import HomePage from "./components/home";
 import Header from "./components/header";
-import AboutPage from "./components/about";
-import HowToBuyPage from "./components/howToBuy";
-import TokenomicsPage from "./components/tokenomics";
-import RoadmapPage from "./components/roadmap";
-import ContactPage from "./components/contact";
-import FooterPage from "./components/footer";
-import Loader from "./components/Loader";
-import FaqPage from "./components/faq";
-import NftCollectiblesPage from './components/nftCollectibles';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@rainbow-me/rainbowkit/styles.css';
-
 import {
   RainbowKitProvider,
   darkTheme,
@@ -108,7 +98,7 @@ const App = () => {
     };
   }, []);
 
-  return isLoading ? <Loader /> : (
+  return  (
     <>
       <ReactAudioPlayer
         src="/audio/mix.mp3"
@@ -122,34 +112,12 @@ const App = () => {
         <RainbowKitProvider chains={chains} coolMode theme={darkTheme()}>
           <BrowserRouter>
             <Header />
-            <div className="relative bg-[#64cc4f]">
+            <div className="relative bg-white h-max">
 
               <HomePage />
 
-              <AboutPage />
-
-              <HowToBuyPage />
-              
-              <NftCollectiblesPage />
-
-              <TokenomicsPage />
-
-              <RoadmapPage />
-
-              <FaqPage />
-
             </div>
 
-            <div className="relative bg-[#64cc4f]">
-
-              <ContactPage />
-
-            </div>
-            <div className="relative bg-[#328336]">
-
-              <FooterPage />
-
-            </div>
           </BrowserRouter>
 
         </RainbowKitProvider>
