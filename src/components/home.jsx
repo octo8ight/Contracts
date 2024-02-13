@@ -81,23 +81,14 @@ const HomePage = () => {
     return (
         <InView onChange={(inView) => setShow(inView)}>
             <div className="absolute w-full opacity-[0.2] top-[0px] left-0 bg-contain bg-no-repeat"
-                style={{ height: 'calc(100vh - 151px)', backgroundImage: 'url(./images/ben10/pngwing4.png)', boxShadow: 'inset rgba(0, 0, 0, 0.5) 0px 3px 8px 0px' }}>
+                style={{ height: '100%', boxShadow: 'inset rgba(0, 0, 0, 0.5) 0px 3px 8px 0px' }}>
             </div>
 
             <div id="home" className="relative z-[2]">
-                <div className="pt-[147px]">
-                    <div className="max-w-[1200px] mx-auto main-visual md:pr-0 flex flex-col">
+                <div className="pt-[150px] h-full">
+                    <div className="max-w-[1800px] p-[100px] mx-auto main-visual md:p-[50px] flex flex-col">
                         <div className="flex flex-row flex-wrap items-center justify-between">
                             <div className="w-full md:max-w-[500px] flex flex-col items-center justify-start">
-
-                                {
-                                    show && (
-                                        <div className={'about-shape-container'}>
-                                            <Bounce duration={1000} delay={300}><img src="/images/ben10/pngegg.png" alt="Logo" className="h-[100px] sm:h-12 md:h-24" /></Bounce>
-                                        </div>
-                                    )
-                                }
-
                                 <div className='buy-usdt flex flex-col items-center justify-center border border-black rounded-[1rem] mx-auto border-3'>
                                     <div className='bg-[#fff] flex flex-col items-center rounded-t-[1rem] w-full'>
                                         <div className='flex flex-col items-center justify-center px-8 py-2'>
@@ -237,7 +228,7 @@ const HomePage = () => {
                                                         {(() => {
                                                             if (!connected) {
                                                                 return (
-                                                                    <button onClick={handleConnectWalletModalShow} type="button" style={{ fontFamily: 'Might', boxShadow: 'rgb(0 0 0 / 98%) 3px 3px 3px 3px', fontSize: '20px', marginBottom: '1rem', transition: '0.1s' }} className="flex p-2 bg-[#64cc4f] text-black items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#328336]">
+                                                                    <button onClick={openConnectModal} type="button" style={{ fontFamily: 'Might', boxShadow: 'rgb(0 0 0 / 98%) 3px 3px 3px 3px', fontSize: '20px', marginBottom: '1rem', transition: '0.1s' }} className="flex p-2 bg-[#64cc4f] text-black items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#328336]">
                                                                         Connect Wallet
                                                                     </button>
                                                                 );
@@ -305,11 +296,11 @@ const HomePage = () => {
                                 </div>
                             </div>
 
-                            <div className='hidden md:flex md:flex-col items-center justify-center w-[50%]'>
+                            <div className='hidden md:flex md:flex-col items-center justify-end w-[50%] mt-[90px]'>
                                 {
                                     show && (
                                         <Fade right cascade>
-                                            <img src="./images/ben10/pngegg2.png" className="mt-[-30px] max-w-[520px] max-h-[480px]" alt="" />
+                                            <img src="./images/CubesShufflingGIF.gif" className="mt-[-200px] max-w-[720px] max-h-[680px]" alt="" />
                                         </Fade>
                                     )
                                 }
@@ -317,10 +308,14 @@ const HomePage = () => {
                                 {
                                     show && (
                                         <Fade right cascade>
-                                            <p className="text-white text-[28px] mt-[10px] md:text-left w-full" style={{ fontFamily: 'Mansalva' }}>
-                                                Welcome to our presale event, where the bold meet the daring, and crypto gets a devilish twist.<br></br>
-                                                Join us, and let's stir up some digital mayhem together
-                                            </p>
+                                            <div className="pt-[50px] w-full">
+                                                <h1 className=" text-5xl pb-3 dark:text-white text-center">
+                                                    Welcome to the <span className="text-[#ffb4ed] dark:text-[#FFD6F5] hover:animate-pulse duration-500">commune</span>! 👋
+                                                </h1>
+                                                <p className="hero__subtitle text-3xl text-center">
+                                                    A place for <span className="text-[#ffb4ed] dark:text-[#FFD6F5]">everyone</span> to <span className="text-[#6db1ff] dark:text-[#6db1ff]">develop</span>, <span className="text-[#FF8F8F]  dark:text-[#FF8F8F]">design</span>, and <span className="text-[#ffef40] dark:text-[#FFF7A1]">create</span>.
+                                                </p>
+                                            </div>
                                         </Fade>
                                     )
                                 }
