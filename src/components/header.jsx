@@ -94,8 +94,8 @@ const Header = () => {
                                     {(() => {
                                         if (!connected) {
                                             return (
-                                                <button onClick={openConnectModal} type="button" className='text-white text-sm sm:text-base md:text-[18px] evermore hover:opacity-[0.7] px-3 py-2 bg-[#e45744] border border-white no-underline rounded-full hover:bg-[#ffffffa4] hover:text-[#e45744]' style={{ fontFamily: 'Smack' }}>
-                                                    Buy now
+                                                <button onClick={openConnectModal} type="button" className='text-white text-sm sm:text-base md:text-[18px] transition-all evermore hover:opacity-[0.7] px-3 py-2 bg-[#e45744] border border-white no-underline rounded-full hover:bg-[#256fc4] hover:text-white' style={{ fontFamily: 'Smack' }}>
+                                                    Connect Wallet
                                                 </button>
                                             );
                                         }
