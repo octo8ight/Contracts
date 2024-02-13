@@ -145,7 +145,7 @@ code {
   }
 
   .main-visual {
-    padding-left: 0 !important;
+    flex-direction: column !important;
   }
 
   .main-visual>div:first-of-type {

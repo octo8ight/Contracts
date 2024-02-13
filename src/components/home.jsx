@@ -43,6 +43,7 @@ const HomePage = () => {
     const [isShowConnectWalletModalOpen, setIsShowConnectWalletModalOpen] =
         React.useState(false);
     const [value, setValue] = React.useState(0);
+    const [address, setAddress] = React.useState('');
 
     const [dominoValue, setDominoValue] = React.useState(0);
 
@@ -85,44 +86,14 @@ const HomePage = () => {
             </div>
 
             <div id="home" className="relative z-[2]">
-                <div className="pt-[150px] h-full">
-                    <div className="max-w-[1800px] p-[100px] mx-auto main-visual md:p-[50px] flex flex-col">
-                        <div className="flex flex-row flex-wrap items-center justify-between">
-                            <div className="w-full md:max-w-[500px] flex flex-col items-center justify-start">
-                                <div className='buy-usdt flex flex-col items-center justify-center border border-black rounded-[1rem] mx-auto border-3'>
+                <div className="pt-[150px] h-[880px] flex justify-center items-center">
+                    <div className="w-full mx-auto main-visual flex flex-col">
+                        <div className="flex flex-row items-center justify-between main-visual">
+                            <div className="w-full md:max-w-[50%] flex flex-col items-center justify-center mt-[-150px] max-md:mt-[-100px] max-sm:mt-[-100px] max-sm:p-[10px]">
+                                <div className=' px-[0px] buy-usdt flex flex-col items-center justify-center border-gray-500 rounded-[1rem] shadow-2xl' style={{ boxShadow: 'rgba(0, 0, 0, 0.5) 0px 3px 8px 0px' }}>
                                     <div className='bg-[#fff] flex flex-col items-center rounded-t-[1rem] w-full'>
                                         <div className='flex flex-col items-center justify-center px-8 py-2'>
-                                            <span className='flex text-black' style={{ fontFamily: 'Might', fontWeight: '700', fontSize: '22px' }}>$BEN10 PUBLIC-SALE ENDS IN</span>
-                                            <span className=' w-full flex justify-center items-center gap-4'>
-                                                <span className=' flex flex-col justify-center items-center'>
-                                                    <span className=' mt-4 w-[60px] h-[60px] flex justify-center items-center rounded-[10px]' style={{ border: '2px solid #328336', fontSize: '30px', fontWeight: 'bold', color: '#328336' }}>
-                                                        00
-                                                    </span>
-                                                    <span className='' style={{ fontSize: "12px", fontWeight: 'bold' }}>HOURS</span>
-                                                </span>
-                                                <span className=' flex flex-col justify-center items-center'>
-                                                    <span className=' mt-4 w-[60px] h-[60px] flex justify-center items-center rounded-[10px]' style={{ border: '2px solid #328336', fontSize: '30px', fontWeight: 'bold', color: '#328336' }}>
-                                                        00
-                                                    </span>
-                                                    <span className='' style={{ fontSize: "12px", fontWeight: 'bold' }}>MINUTES</span>
-                                                </span>
-                                                <span className=' flex flex-col justify-center items-center'>
-                                                    <span className=' mt-4 w-[60px] h-[60px] flex justify-center items-center rounded-[10px]' style={{ border: '2px solid #328336', fontSize: '30px', fontWeight: 'bold', color: '#328336' }}>
-                                                        00
-                                                    </span>
-                                                    <span className='' style={{ fontSize: "12px", fontWeight: 'bold' }}>SECONDS</span>
-                                                </span>
-                                            </span>
-                                            <span className='flex mt-2 text-black' style={{ fontFamily: 'Might', fontSize: '1.6rem' }}>
-                                                RAISED
-                                                <span style={{ fontFamily: 'Might', fontSize: '1.05em', fontWeight: '700' }}>
-                                                    $25,495.27
-                                                </span>
-                                                / $50,000.00
-                                            </span>
-
-                                            <ProgressBar animated now={50} variant="danger" style={{ width: '100%', border: 'solid 1px' }} className='mt-4' />
-
+                                            <span className='flex text-black' style={{ fontFamily: 'Might', fontWeight: '700', fontSize: '22px' }}>Welcome to the Commune</span>
                                         </div>
                                     </div>
 
@@ -142,27 +113,70 @@ const HomePage = () => {
                                         />
 
                                     </div>
-
                                     <div className='flex bg-[#fff] flex-col w-full'>
 
-                                        <div className='flex bg-[#fff] py-2 px-8 items-center justify-between w-full'>
-                                            <span style={{ fontFamily: 'Might' }}>
-                                                Current Price: <span style={{ fontFamily: 'Smack', fontWeight: '600' }}> $0.0133</span>
-                                            </span>
-                                            <span style={{ fontFamily: 'Might' }}>
-                                                Next Stage Price: <span style={{ fontFamily: 'Smack', fontWeight: '600' }}> $0.014</span>
+                                        <div className='flex bg-[#fff] px-8 items-center justify-between w-full mt-[20px]'>
+                                            <span className=' text-[#e45744]' style={{ fontFamily: 'Might' }}>
+                                                Supply Infomation
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-[rgba(0,0,0,0.4)] my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
+                                        <div className='flex bg-[#e45744] my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />                                     
+                                        <div className='flex flex-col items-center justify-center w-full sm:flex-row gap-4'>
+                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
+                                                <span className=' text-[14px] ml-[55px] w-full items-start' style={{ color: 'black', fontFamily: 'Smack' }}>TOTAL SUPPLY</span>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
 
-                                        <div className='flex flex-col items-center justify-between w-full sm:flex-row'>
-                                            <div className='flex flex-col items-center justify-between md:w-80% mb-4 md: ml-4'>
-                                                <span style={{ color: 'black', fontFamily: 'Smack' }}>AMOUNT IN {selectedCurrency} YOU PAY</span>
-                                                <div className='flex flex-col border rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(0 0 0 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+                                                    <div className='flex flex-row items-center justify-center'>
+                                                        <input value={value} disabled className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {                           
+                                                        }} />
+                                                        <span style={{ color: 'black', marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
+                                                <span className=' text-[14px] ml-[55px] w-full items-start' style={{ color: 'black', fontFamily: 'Smack' }}>MAXIUM SUPPLY</span>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
 
-                                                    <div className='flex flex-row items-center justify-between'>
-                                                        <input value={value} className='border-none outline-none appearance-none w-[80%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
+                                                    <div className='flex flex-row items-center justify-center'>
+                                                        <input value={value} disabled className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {                           
+                                                        }} />
+                                                        <span style={{ color: 'black', marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div className='flex bg-[#fff] flex-col w-full'>
+
+                                        <div className='flex bg-[#fff] px-8 items-center justify-between w-full mt-[0px]'>
+                                            <span className=' text-[#e45744]' style={{ fontFamily: 'Might' }}>
+                                                Transfer
+                                            </span>
+                                        </div>
+
+                                        <div className='flex bg-[#e45744] my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
+                                        <div className='flex flex-col items-center justify-center mb-2 w-[90%]  m-auto'>
+                                            <span className=' text-[14px] text-start items-start w-full ml-[25px]' style={{ color: 'black', fontFamily: 'Smack' }}>To</span>
+                                            <div className='flex flex-col border rounded-[0.5rem] bg-[#fff] py-2 px-7 w-full' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+                                                <div className='flex items-center justify-center'>
+                                                    <input value={address} className='border-none outline-none appearance-none w-[90%] h-[30px]' type='text' onChange={({ target: { value } }) => {
+                                                        setAddress(value);
+                                                    }} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='flex flex-col items-center justify-center w-full sm:flex-row gap-4'>
+                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
+                                                <span className=' text-[14px] ml-[55px] w-full items-start' style={{ color: 'black', fontFamily: 'Smack' }}>AMOUNT</span>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+
+                                                    <div className='flex flex-row items-center justify-center'>
+                                                        <input value={value} className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
                                                             if (!isNaN(value)) {
                                                                 setValue(value);
                                                             }
@@ -171,26 +185,65 @@ const HomePage = () => {
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div className='flex flex-col items-center justify-center mb-4 w-[45%] mt-[23px]'>
+                                                <button onClick={() => console.log('1')} type="button" style={{ fontFamily: 'Might', fontSize: '20px' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
+                                                    Transfer Now
+                                                </button>
+                                            </div>
 
-                                            <div className='flex flex-col items-center justify-between mb-4 ml-4 md:mr-4'>
-                                                <span style={{ color: 'black', fontFamily: 'Smack' }}>AMOUNT YOU RECEIVE</span>
-                                                <div className='flex flex-col border rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(0 0 0 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
-                                                    <div className='flex items-center justify-between'>
-                                                        <input value={selectedCurrency === "ETH" ? value / (0.000333 * 2200) : value / 0.000333} disabled className='border-none outline-none appearance-none w-[80%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
+                                        </div>
+
+                                    </div>
+                                    <div className='flex bg-[#fff] flex-col w-full'>
+
+                                        <div className='flex bg-[#fff] px-8 items-center justify-between w-full mt-[0px]'>
+                                            <span className=' text-[#e45744]' style={{ fontFamily: 'Might' }}>
+                                                Staking
+                                            </span>
+                                        </div>
+
+                                        <div className='flex bg-[#e45744] my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
+
+                                        <div className='flex items-center justify-center w-full max-sm:flex-col gap-2'>
+                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[150px]'>
+                                                <span className=' text-[14px] text-start items-start w-full ml-[25px]' style={{ color: 'black', fontFamily: 'Smack' }}>TOTAL</span>
+
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+
+                                                    <div className='flex flex-row items-center justify-center'>
+                                                        <input value={value} disabled className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
                                                             if (!isNaN(value)) {
-                                                                setDominoValue(value);
+                                                                setValue(value);
                                                             }
                                                         }} />
-                                                        <img loading="lazy" src="/images/ben10/pngegg2.png" className="" aria-hidden="false" alt="Doge" style={{ height: ' 1.9rem' }} />
+                                                        <span style={{ color: 'black', marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[150px]'>
+                                                <span className=' text-[14px] text-start items-start w-full ml-[25px]' style={{ color: 'black', fontFamily: 'Smack' }}>AMOUNT</span>
+
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+
+                                                    <div className='flex flex-row items-center justify-center'>
+                                                        <input value={value} className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
+                                                            if (!isNaN(value)) {
+                                                                setValue(value);
+                                                            }
+                                                        }} />
+                                                        <span style={{ color: 'black', marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='flex flex-col items-center justify-center mb-4 w-[150px] mt-[23px]'>
+                                                <button onClick={() => console.log('1')} type="button" style={{ fontFamily: 'Might', fontSize: '20px' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
+                                                    Stake Now
+                                                </button>
+                                            </div>
                                         </div>
 
-                                        <div className='flex bg-[rgba(0,0,0,0.4)] my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
 
                                     </div>
-
                                     <div className='flex bg-[#fff] flex-col w-full items-center justify-center py-2 px-4 rounded-bottom-4 pb-2'>
 
                                         <ConnectButton.Custom>
@@ -228,7 +281,7 @@ const HomePage = () => {
                                                         {(() => {
                                                             if (!connected) {
                                                                 return (
-                                                                    <button onClick={openConnectModal} type="button" style={{ fontFamily: 'Might', boxShadow: 'rgb(0 0 0 / 98%) 3px 3px 3px 3px', fontSize: '20px', marginBottom: '1rem', transition: '0.1s' }} className="flex p-2 bg-[#64cc4f] text-black items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#328336]">
+                                                                    <button onClick={openConnectModal} type="button" style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem', transition: '0.1s' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
                                                                         Connect Wallet
                                                                     </button>
                                                                 );
@@ -236,7 +289,7 @@ const HomePage = () => {
 
                                                             if (chain.unsupported) {
                                                                 return (
-                                                                    <button onClick={openChainModal} type="button" style={{ boxShadow: 'rgb(0 0 0 / 98%) 3px 3px 3px 3px' }}>
+                                                                    <button onClick={openChainModal} type="button">
                                                                         Wrong network
                                                                     </button>
                                                                 );
@@ -272,7 +325,7 @@ const HomePage = () => {
                                                                         {chain.name}
                                                                     </button>
 
-                                                                    <button onClick={() => handleBuyButton(account.address, selectedCurrency)} type="button" style={{ fontFamily: 'Might', boxShadow: 'rgb(0 0 0 / 98%) 3px 3px 3px 3px', fontSize: '20px', marginBottom: '1rem' }} className="flex p-2 bg-[#328336] text-black items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#64cc4f]">
+                                                                    <button onClick={() => handleBuyButton(account.address, selectedCurrency)} type="button" style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
                                                                         Buy Now
                                                                     </button>
 
@@ -296,7 +349,7 @@ const HomePage = () => {
                                 </div>
                             </div>
 
-                            <div className='hidden md:flex md:flex-col items-center justify-end w-[50%] mt-[90px]'>
+                            <div className='hidden md:flex md:flex-col items-center justify-end w-[50%] mt-[-60px]'>
                                 {
                                     show && (
                                         <Fade right cascade>
@@ -309,10 +362,10 @@ const HomePage = () => {
                                     show && (
                                         <Fade right cascade>
                                             <div className="pt-[50px] w-full">
-                                                <h1 className=" text-5xl pb-3 dark:text-white text-center">
+                                                <h1 className=" text-4xl pb-3 dark:text-white text-center">
                                                     Welcome to the <span className="text-[#ffb4ed] dark:text-[#FFD6F5] hover:animate-pulse duration-500">commune</span>! 👋
                                                 </h1>
-                                                <p className="hero__subtitle text-3xl text-center">
+                                                <p className="hero__subtitle text-2xl text-center">
                                                     A place for <span className="text-[#ffb4ed] dark:text-[#FFD6F5]">everyone</span> to <span className="text-[#6db1ff] dark:text-[#6db1ff]">develop</span>, <span className="text-[#FF8F8F]  dark:text-[#FF8F8F]">design</span>, and <span className="text-[#ffef40] dark:text-[#FFF7A1]">create</span>.
                                                 </p>
                                             </div>
@@ -325,77 +378,6 @@ const HomePage = () => {
                         </div>
                     </div>
                 </div>
-                {isShowConnectWalletModalOpen && (
-                    <Modal
-                        title=""
-                        className={{ antdModel }}
-                        open={isShowConnectWalletModalOpen}
-                        style={{ marginTop: "150px" }}
-                        width={"450px"}
-                        closeIcon={null}
-                        onCancel={handleConnectWalletModalShowCancel}
-                        footer={null}
-                    >
-                        <div
-                            className="flex items-center justify-center w-full"
-                            style={{ backgroundColor: "#328336" }}
-                        >
-                            <div className=" w-[80%]">
-                                <div className=" w-full mt-6">
-                                    <span className=" text-center text-[25px] text-white">
-                                        CHOOSE WALLET
-                                    </span>
-                                </div>
-                                <hr className=" mt-[20px] text-white" />
-                                <div className="w-[90%] m-auto flex justify-center items-center flex-col">
-                                    <a
-                                        className=" p-3 w-full h-auto mt-1 no-underline flex justify-center items-center gap-2"
-                                        style={{ border: "1px solid white" }}
-                                    >
-                                        <img
-                                            src="https://kndonsolana.com/assets/wallets/phantom.png"
-                                            width="30px;"
-                                        />
-                                        &nbsp;&nbsp;&nbsp;
-                                        <b className=" text-[17px] w-auto text-white hover:text-[#64cc4f]">
-                                            PHANTOM
-                                        </b>
-                                        &nbsp;&nbsp;&nbsp;
-                                    </a>
-                                    <br />
-                                    <a
-                                        className=" mt-2 p-3 w-full h-auto no-underline flex justify-center items-center gap-2"
-                                        style={{ border: "1px solid white" }}
-                                    >
-                                        <img
-                                            src="https://kndonsolana.com/assets/wallets/solflare.png"
-                                            width="30px;"
-                                        />
-                                        &nbsp;&nbsp;&nbsp;
-                                        <b className=" text-[17px] w-auto text-white hover:text-[#64cc4f]">
-                                            SOLFLARE
-                                        </b>
-                                        &nbsp;&nbsp;&nbsp;
-                                    </a>
-                                    <hr className=" mt-[30px] w-full text-white" />
-                                    <div
-                                        align="center"
-                                        className=" mb-3 text-[16px]  text-gray-300"
-                                    >
-                                        Dont have a wallet?{" "}
-                                        <a
-                                            target="_blank"
-                                            className=" no-underline text-[#2327ff]"
-                                            href="https://phantom.app/download"
-                                        >
-                                            Create one.
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Modal>
-                )}
             </div>
 
             {/* <img src="/images/FIRELINE.svg" alt="gapimage" /> */}
