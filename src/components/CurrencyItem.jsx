@@ -12,7 +12,7 @@ const CurrencyItem = ({ image, label, isSelected, onClick }) => {
 
     return (
         <div
-            className={` transition-[1s] flex flex-row justify-center items-center rounded-[0.5rem] w-[45%] p-2 bg-[#fff] hover:bg-[#6db1ff] cursor-pointer ${borderColorClass}`}
+            className={` dark:text-white transition-[1s] dark:shadow-none dark:border-none flex flex-row justify-center items-center rounded-[0.5rem] w-[45%] p-2 bg-[#fff] dark:bg-[rgb(30,31,34)] dark:hover:bg-[rgb(49,51,56)] hover:bg-[#6db1ff] cursor-pointer ${borderColorClass}`}
             onClick={onClick}
             style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px', backgroundColor }}
         >
