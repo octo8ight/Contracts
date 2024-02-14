@@ -40,40 +40,35 @@ const HomePage = () => {
     const handleCurrencyClick = (currency) => {
         setSelectedCurrency(currency);
     };
-    const [isShowConnectWalletModalOpen, setIsShowConnectWalletModalOpen] =
-        React.useState(false);
-    const [value, setValue] = React.useState(0);
+
+    const [transferValue, setTransferValue] = React.useState(0);
+    const [totalSupplyValue, setTotalSupplyValue] = React.useState(0);
+    const [maxiumSupplyValue, setMaxiumSupplyValue] = React.useState(0);
+    const [stakeAmount, setStakeAmount] = React.useState(0);
+    const [totalStakeAmount, setTotalStakeAmount] = React.useState(0);
     const [address, setAddress] = React.useState('');
 
-    const [dominoValue, setDominoValue] = React.useState(0);
 
     const handleBuyButton = useCallback(async (address, currency) => {
 
         if (currency === 'USDT') {
-            await approve({ args: [PRESALE_CONTRACT_ADDRESS, value * 1000000], from: address });
-            buyWithUSDT({ args: [value], from: address });
+            await approve({ args: [PRESALE_CONTRACT_ADDRESS, transferValue * 1000000], from: address });
+            buyWithUSDT({ args: [transferValue], from: address });
         }
 
         if (currency === 'ETH') {
 
             buyTokens({
-                value: parseEther(value.toString()),
+                value: parseEther(transferValue.toString()),
                 from: address
             })
         }
 
 
-    }, [buyTokens, buyWithUSDT, approve, value])
+    }, [buyTokens, buyWithUSDT, approve, transferValue])
 
     const [show, setShow] = React.useState(false);
 
-    const handleConnectWalletModalShow = () => {
-        setIsShowConnectWalletModalOpen(true);
-    };
-
-    const handleConnectWalletModalShowCancel = () => {
-        setIsShowConnectWalletModalOpen(false);
-    };
 
     const openBuyModal = () => (
         console.log('1')
@@ -85,19 +80,19 @@ const HomePage = () => {
                 style={{ height: '100%', boxShadow: 'inset rgba(0, 0, 0, 0.5) 0px 3px 8px 0px' }}>
             </div>
 
-            <div id="home" className="relative z-[2]">
-                <div className="pt-[150px] h-[880px] flex justify-center items-center">
+            <div id="home" className="relative z-[2] dark:bg-[rgb(49,51,56)] transition-all">
+                <div className="pt-[150px] h-[881px] flex justify-center items-center">
                     <div className="w-full mx-auto main-visual flex flex-col">
                         <div className="flex flex-row items-center justify-between main-visual">
-                            <div className="w-full md:max-w-[50%] flex flex-col items-center justify-center mt-[-150px] max-md:mt-[-100px] max-sm:mt-[-100px] max-sm:p-[10px]">
-                                <div className=' px-[0px] buy-usdt flex flex-col items-center justify-center border-gray-500 rounded-[1rem] shadow-2xl' style={{ boxShadow: 'rgba(0, 0, 0, 0.5) 0px 3px 8px 0px' }}>
-                                    <div className='bg-[#fff] flex flex-col items-center rounded-t-[1rem] w-full'>
+                            <div className="w-full md:max-w-[50%] flex flex-col items-center justify-center mt-[-150px] max-md:mt-[-100px] max-sm:mt-[-100px] max-sm:p-[10px] ">
+                                <div className='dark:bg-[rgb(43,45,49)] transition-all px-[0px] buy-usdt flex flex-col items-center justify-center border-gray-500 rounded-[1rem] shadow-2xl' style={{ boxShadow: 'rgba(0, 0, 0, 0.5) 0px 3px 8px 0px' }}>
+                                    <div className='bg-[#fff] dark:bg-[rgb(43,45,49)] transition-all flex flex-col items-center rounded-t-[1rem] w-full'>
                                         <div className='flex flex-col items-center justify-center px-8 py-2'>
-                                            <span className='flex text-black' style={{ fontFamily: 'Might', fontWeight: '700', fontSize: '22px' }}>Welcome to the Commune</span>
+                                            <span className='flex dark:text-white transition-all' style={{ fontFamily: 'Might', fontWeight: '700', fontSize: '22px' }}>Welcome to the Commune</span>
                                         </div>
                                     </div>
 
-                                    <div className='flex flex-row justify-between py-1 px-4 w-full bg-[#fff]'>
+                                    <div className='flex flex-row justify-between py-1 px-4 w-full bg-[#fff] dark:bg-[rgb(43,45,49)] transition-all'>
                                         <CurrencyItem
                                             image="/images/eth.svg"
                                             label="ETH"
@@ -113,35 +108,35 @@ const HomePage = () => {
                                         />
 
                                     </div>
-                                    <div className='flex bg-[#fff] flex-col w-full'>
+                                    <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] flex-col w-full'>
 
-                                        <div className='flex bg-[#fff] px-8 items-center justify-between w-full mt-[20px]'>
-                                            <span className=' text-black' style={{ fontFamily: 'Might' }}>
+                                        <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] px-8 items-center justify-between w-full mt-[20px]'>
+                                            <span className='  dark:text-white' style={{ fontFamily: 'Might' }}>
                                                 Supply Infomation
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-slate-300 my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />                                     
-                                        <div className='flex flex-col items-center justify-center w-full sm:flex-row gap-4'>
+                                        <div className='flex bg-slate-300 dark:bg-gray-500 my-2 mx-auto items-center justify-between w-[90%] h-[1px] ' />                                     
+                                        <div className='flex flex-col items-center justify-center w-full sm:flex-row gap-4 dark:bg-[rgb(43,45,49)]'>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
                                                 <span className=' text-[14px] ml-[55px] w-full items-start text-gray-500' style={{ fontFamily: 'Smack' }}>TOTAL SUPPLY</span>
-                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4 dark:shadow-none' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
-                                                        <input value={value} disabled className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {                           
+                                                        <input value={totalSupplyValue} disabled className='border-none dark:bg-[rgb(30,31,34)]  dark:text-white outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {                           
                                                         }} />
-                                                        <span style={{ color: 'black', marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                        <span className=' dark:text-white' style={{ marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
                                                 <span className=' text-[14px] ml-[55px] w-full items-start text-gray-500' style={{  fontFamily: 'Smack' }}>MAXIUM SUPPLY</span>
-                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
-                                                        <input value={value} disabled className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {                           
+                                                        <input value={maxiumSupplyValue} disabled className='border-none dark:bg-[rgb(30,31,34)] dark:text-white outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {                           
                                                         }} />
-                                                        <span style={{ color: 'black', marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                        <span className=' dark:text-white' style={{  marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -151,20 +146,20 @@ const HomePage = () => {
                                     </div>
 
 
-                                    <div className='flex bg-[#fff] flex-col w-full'>
+                                    <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] flex-col w-full'>
 
-                                        <div className='flex bg-[#fff] px-8 items-center justify-between w-full mt-[0px]'>
-                                            <span className=' text-black' style={{ fontFamily: 'Might' }}>
+                                        <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] px-8 items-center justify-between w-full mt-[0px]'>
+                                            <span className=' dark:text-white' style={{ fontFamily: 'Might' }}>
                                                 Transfer
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-slate-300 my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
+                                        <div className='flex bg-slate-300 dark:bg-gray-500  my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
                                         <div className='flex flex-col items-center justify-center mb-2 w-[90%]  m-auto'>
                                             <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{ fontFamily: 'Smack' }}>To</span>
-                                            <div className='flex flex-col border rounded-[0.5rem] bg-[#fff] py-2 px-7 w-full' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+                                            <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)]  py-2 px-7 w-full' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
                                                 <div className='flex items-center justify-center'>
-                                                    <input value={address} className='border-none outline-none appearance-none w-[90%] h-[30px]' type='text' onChange={({ target: { value } }) => {
+                                                    <input value={address} className='border-none outline-none dark:bg-[rgb(30,31,34)] dark:text-white appearance-none w-[90%] h-[30px]' type='text' onChange={({ target: { value } }) => {
                                                         setAddress(value);
                                                     }} />
                                                 </div>
@@ -173,15 +168,15 @@ const HomePage = () => {
                                         <div className='flex flex-col items-center justify-center w-full sm:flex-row gap-4'>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
                                                 <span className=' text-[14px] ml-[55px] w-full items-start text-gray-500' style={{  fontFamily: 'Smack' }}>AMOUNT</span>
-                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
-                                                        <input value={value} className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
+                                                        <input value={transferValue} className='border-none dark:bg-[rgb(30,31,34)] dark:text-white outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
                                                             if (!isNaN(value)) {
-                                                                setValue(value);
+                                                                setTransferValue(value);
                                                             }
                                                         }} />
-                                                        <span style={{ color: 'black', marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                        <span className=' dark:text-white' style={{  marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -194,48 +189,46 @@ const HomePage = () => {
                                         </div>
 
                                     </div>
-                                    <div className='flex bg-[#fff] flex-col w-full'>
+                                    <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] flex-col w-full'>
 
-                                        <div className='flex bg-[#fff] px-8 items-center justify-between w-full mt-[0px]'>
-                                            <span className=' text-black' style={{ fontFamily: 'Might' }}>
+                                        <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] px-8 items-center justify-between w-full mt-[0px]'>
+                                            <span className=' dark:text-white' style={{ fontFamily: 'Might' }}>
                                                 Staking
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-slate-300 my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
+                                        <div className='flex bg-slate-300 dark:bg-gray-500 my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
 
                                         <div className='flex items-center justify-center w-full max-sm:flex-col gap-2'>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[150px]'>
                                                 <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{  fontFamily: 'Smack' }}>TOTAL</span>
 
-                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
-                                                        <input value={value} disabled className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
-                                                            if (!isNaN(value)) {
-                                                                setValue(value);
-                                                            }
+                                                        <input value={totalStakeAmount} disabled className='border-none dark:bg-[rgb(30,31,34)] dark:text-white outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
+                    
                                                         }} />
-                                                        <span style={{ color: 'black', marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                        <span className=' dark:text-white' style={{ marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[150px]'>
                                                 <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{  fontFamily: 'Smack' }}>AMOUNT</span>
 
-                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 1.5px 1.5px 1.5px 1.5px' }}>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
-                                                        <input value={value} className='border-none outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
+                                                        <input value={stakeAmount} className='border-none outline-none appearance-none w-[90%] dark:text-white dark:bg-[rgb(30,31,34)]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
                                                             if (!isNaN(value)) {
-                                                                setValue(value);
+                                                                setStakeAmount(value);
                                                             }
                                                         }} />
-                                                        <span style={{ color: 'black', marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                        <span className=' dark:text-white' style={{  marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='flex flex-col items-center justify-center mb-4 w-[150px] mt-[23px]'>
+                                            <div className='flex flex-col items-center justify-center mb-4 w-[150px] mt-[22px]'>
                                                 <button onClick={() => console.log('1')} type="button" style={{ fontFamily: 'Might', fontSize: '20px' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
                                                     Stake Now
                                                 </button>
@@ -244,7 +237,7 @@ const HomePage = () => {
 
 
                                     </div>
-                                    <div className='flex bg-[#fff] flex-col w-full items-center justify-center py-2 px-4 rounded-bottom-4 pb-2'>
+                                    <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] flex-col w-full items-center justify-center py-2 px-4 rounded-bottom-4 pb-2'>
 
                                         <ConnectButton.Custom>
                                             {({
@@ -301,6 +294,7 @@ const HomePage = () => {
                                                                         onClick={openChainModal}
                                                                         style={{ display: 'flex', alignItems: 'center' }}
                                                                         type="button"
+                                                                        className=' dark:text-white'
                                                                     >
                                                                         {chain.hasIcon && (
                                                                             <div
@@ -329,7 +323,7 @@ const HomePage = () => {
                                                                         Buy Now
                                                                     </button>
 
-                                                                    <button onClick={openAccountModal} type="button">
+                                                                    <button onClick={openAccountModal} className=' dark:text-white' type="button">
                                                                         {account.displayName}
                                                                         {account.displayBalance
                                                                             ? ` (${account.displayBalance})`
@@ -365,7 +359,7 @@ const HomePage = () => {
                                                 <h1 className=" text-4xl pb-3 dark:text-white text-center">
                                                     Welcome to the <span className="text-[#ffb4ed] dark:text-[#FFD6F5] hover:animate-pulse duration-500">commune</span>! 👋
                                                 </h1>
-                                                <p className="hero__subtitle text-2xl text-center">
+                                                <p className="hero__subtitle text-2xl text-center dark:text-white">
                                                     A place for <span className="text-[#ffb4ed] dark:text-[#FFD6F5]">everyone</span> to <span className="text-[#6db1ff] dark:text-[#6db1ff]">develop</span>, <span className="text-[#FF8F8F]  dark:text-[#FF8F8F]">design</span>, and <span className="text-[#ffef40] dark:text-[#FFF7A1]">create</span>.
                                                 </p>
                                             </div>
@@ -380,7 +374,6 @@ const HomePage = () => {
                 </div>
             </div>
 
-            {/* <img src="/images/FIRELINE.svg" alt="gapimage" /> */}
 
         </InView>
     )

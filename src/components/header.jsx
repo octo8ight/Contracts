@@ -1,4 +1,5 @@
 import React from "react";
+import Switcher from "./switcher";
 import { Link } from "react-router-dom";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Input, Modal, Button } from "antd";
@@ -43,19 +44,22 @@ const Header = () => {
   };
 
   return (
-    <div className="relative bg-white py-1 sm:py-2 md:py-3 flex items-center justify-between shadow-md">
+    <div className="relative dark:bg-[rgb(30,31,34)] transition-all py-1 sm:py-2 md:py-3 flex items-center justify-between shadow-md">
       <div className="flex items-center justify-between w-full max-w-screen-xl px-4 mx-auto sm:px-6 md:px-8">
         <div className="flex justify-center items-center gap-2">
           <a href='/'>
             <img
               src="/images/svg/commune.svg"
               alt="Logo"
-              className="  cursor-pointer h-[140px] sm:h-16 md:h-18"
+              className="cursor-pointer h-[140px] sm:h-16 md:h-18"
             />
           </a>
-         <a href='/' className=' no-underline'><p className=' cursor-pointer text-[24px] font-bold mt-[7px]'>commune</p></a>
+         <a href='/' className=' no-underline dark:text-white transition-all'><p className=' cursor-pointer text-[24px] font-bold mt-[7px]'>commune</p></a>
         </div>
-        <nav className="flex-wrap items-center hidden space-x-4 pc-menu md:flex">
+        <nav className="flex-wrap gap-5 items-center hidden space-x-4 pc-menu md:flex">
+          <div className=''>
+            <Switcher/>
+          </div>
           <div
             style={{ display: "flex", gap: 12 }}
             className="flex flex-col items-center justify-center"
