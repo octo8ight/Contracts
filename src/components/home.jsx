@@ -5,7 +5,6 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useContractRead, useContractWrite } from 'wagmi';
 import { PRESALE_CONTRACT_ADDRESS, USDT_CONTRACT_ADDRESS } from '../utils/env';
 import * as antdModel from "../utils/antdmodal.css";
-import * as  presaleContractABI from '../token_presale_abi.json';
 import * as  erc20ContractABI from '../token_abi.json';
 import { useCallback } from 'react';
 import { parseEther } from 'viem';
@@ -15,8 +14,7 @@ import { Zoom, Fade, Bounce } from 'react-reveal';
 
 const HomePage = () => {
 
-    const { abi } = presaleContractABI
-    const { abi: erc20ABI } = erc20ContractABI
+    const { abi } = erc20ContractABI
 
     const [selectedCurrency, setSelectedCurrency] = React.useState(null);
     const { write: buyWithUSDT } = useContractWrite({
@@ -33,7 +31,7 @@ const HomePage = () => {
 
     const { writeAsync: approve } = useContractWrite({
         address: USDT_CONTRACT_ADDRESS,
-        abi: erc20ABI,
+        abi: abi,
         functionName: 'approve'
     })
 
@@ -68,11 +66,6 @@ const HomePage = () => {
     }, [buyTokens, buyWithUSDT, approve, transferValue])
 
     const [show, setShow] = React.useState(false);
-
-
-    const openBuyModal = () => (
-        console.log('1')
-    )
 
     return (
         <InView onChange={(inView) => setShow(inView)}>
