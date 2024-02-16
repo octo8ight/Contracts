@@ -1,14 +1,11 @@
 import React from 'react'
-import { ProgressBar } from 'react-bootstrap';
 import CurrencyItem from './CurrencyItem';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useContractRead, useContractWrite } from 'wagmi';
 import { PRESALE_CONTRACT_ADDRESS, USDT_CONTRACT_ADDRESS } from '../utils/env';
-import * as antdModel from "../utils/antdmodal.css";
 import * as  erc20ContractABI from '../token_abi.json';
 import { useCallback } from 'react';
 import { parseEther } from 'viem';
-import { Input, Modal, Button } from "antd";
 import { InView } from "react-intersection-observer";
 import { Zoom, Fade, Bounce } from 'react-reveal';
 
