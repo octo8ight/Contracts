@@ -61,5 +61,18 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.3.5"
-  }
+  },
+  "main": "tailwind.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ninja0930/Contracts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ninja0930/Contracts/issues"
+  },
+  "homepage": "https://github.com/Ninja0930/Contracts#readme",
+  "description": ""
 }
