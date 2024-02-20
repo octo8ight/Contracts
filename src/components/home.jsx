@@ -3,6 +3,7 @@ import CurrencyItem from './CurrencyItem';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useContractRead, useContractWrite } from 'wagmi';
 import { PRESALE_CONTRACT_ADDRESS, USDT_CONTRACT_ADDRESS } from '../utils/env';
+import * as  presaleContractABI from '../token_presale_abi.json';
 import * as  erc20ContractABI from '../token_abi.json';
 import { useCallback } from 'react';
 import { parseEther } from 'viem';
@@ -11,7 +12,8 @@ import { Zoom, Fade, Bounce } from 'react-reveal';
 
 const HomePage = () => {
 
-    const { abi } = erc20ContractABI
+    const { abi } = presaleContractABI
+    const { abi: erc20ABI } = erc20ContractABI
 
     const [selectedCurrency, setSelectedCurrency] = React.useState(null);
     const { write: buyWithUSDT } = useContractWrite({
@@ -28,14 +30,16 @@ const HomePage = () => {
 
     const { writeAsync: approve } = useContractWrite({
         address: USDT_CONTRACT_ADDRESS,
-        abi: abi,
+        abi: erc20ABI,
         functionName: 'approve'
     })
+
 
     const handleCurrencyClick = (currency) => {
         setSelectedCurrency(currency);
     };
 
+    const [value, setValue] = React.useState(0);
     const [transferValue, setTransferValue] = React.useState(0);
     const [totalSupplyValue, setTotalSupplyValue] = React.useState(0);
     const [maxiumSupplyValue, setMaxiumSupplyValue] = React.useState(0);
@@ -47,20 +51,20 @@ const HomePage = () => {
     const handleBuyButton = useCallback(async (address, currency) => {
 
         if (currency === 'USDT') {
-            await approve({ args: [PRESALE_CONTRACT_ADDRESS, transferValue * 1000000], from: address });
-            buyWithUSDT({ args: [transferValue], from: address });
+            await approve({ args: [PRESALE_CONTRACT_ADDRESS, value * 1000000], from: address });
+            buyWithUSDT({ args: [value], from: address });
         }
 
         if (currency === 'ETH') {
 
             buyTokens({
-                value: parseEther(transferValue.toString()),
+                value: parseEther(value.toString()),
                 from: address
             })
         }
 
 
-    }, [buyTokens, buyWithUSDT, approve, transferValue])
+    }, [buyTokens, buyWithUSDT, approve, value])
 
     const [show, setShow] = React.useState(false);
 
@@ -70,19 +74,19 @@ const HomePage = () => {
                 style={{ height: '100%', boxShadow: 'inset rgba(0, 0, 0, 0.5) 0px 3px 8px 0px' }}>
             </div>
 
-            <div id="home" className="relative z-[2] dark:bg-[rgb(49,51,56)] transition-all">
+            <div id="home" className="relative z-[2] dark:bg-[rgb(22,22,22)] transition-all">
                 <div className="pt-[150px] h-[881px] flex justify-center items-center">
                     <div className="w-full mx-auto main-visual flex flex-col">
                         <div className="flex flex-row items-center justify-between main-visual">
                             <div className="w-full md:max-w-[50%] flex flex-col items-center justify-center mt-[-150px] max-md:mt-[-100px] max-sm:mt-[-100px] max-sm:p-[10px] ">
-                                <div className='dark:bg-[rgb(43,45,49)] transition-all px-[0px] buy-usdt flex flex-col items-center justify-center border-gray-500 rounded-[1rem] shadow-2xl' style={{ boxShadow: 'rgba(0, 0, 0, 0.5) 0px 3px 8px 0px' }}>
-                                    <div className='bg-[#fff] dark:bg-[rgb(43,45,49)] transition-all flex flex-col items-center rounded-t-[1rem] w-full'>
+                                <div className='dark:bg-[rgb(36,37,38)] transition-all px-[20px] buy-usdt flex flex-col items-center justify-center border-gray-500 rounded-[1rem] shadow-2xl w-[550px]' style={{ boxShadow: 'rgba(0, 0, 0, 0.5) 0px 3px 8px 0px' }}>
+                                    <div className='bg-[#fff] dark:bg-[rgb(36,37,38)] transition-all flex flex-col items-center rounded-t-[1rem] w-full'>
                                         <div className='flex flex-col items-center justify-center px-8 py-2'>
                                             <span className='flex dark:text-white transition-all' style={{ fontFamily: 'Might', fontWeight: '700', fontSize: '22px' }}>Welcome to the Commune</span>
                                         </div>
                                     </div>
 
-                                    <div className='flex flex-row justify-between py-1 px-4 w-full bg-[#fff] dark:bg-[rgb(43,45,49)] transition-all'>
+                                    <div className='flex flex-row justify-between py-1 px-4 w-full bg-[#fff] dark:bg-[rgb(36,37,38)] transition-all'>
                                         <CurrencyItem
                                             image="/images/eth.svg"
                                             label="ETH"
@@ -98,35 +102,35 @@ const HomePage = () => {
                                         />
 
                                     </div>
-                                    <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] flex-col w-full'>
+                                    <div className='flex bg-[#fff] dark:bg-[rgb(36,37,38)] flex-col w-full'>
 
-                                        <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] px-8 items-center justify-between w-full mt-[20px]'>
+                                        <div className='flex bg-[#fff] dark:bg-[rgb(36,37,38)] px-6 items-center justify-between w-full mt-[20px]'>
                                             <span className='  dark:text-white' style={{ fontFamily: 'Might' }}>
                                                 Supply Infomation
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-slate-300 dark:bg-gray-500 my-2 mx-auto items-center justify-between w-[90%] h-[1px] ' />                                     
-                                        <div className='flex flex-col items-center justify-center w-full sm:flex-row gap-4 dark:bg-[rgb(43,45,49)]'>
-                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
-                                                <span className=' text-[14px] ml-[55px] w-full items-start text-gray-500' style={{ fontFamily: 'Smack' }}>TOTAL SUPPLY</span>
+                                        <div className='flex bg-slate-300 dark:bg-gray-500 my-2 mx-auto items-center justify-between w-[100%] h-[1px] ' />
+                                        <div className='flex flex-col items-center justify-between w-full sm:flex-row gap-4 dark:bg-[rgb(36,37,38)]'>
+                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[48%]'>
+                                                <span className=' text-[14px] ml-[25px] w-full items-start text-gray-500' style={{ fontFamily: 'Smack' }}>TOTAL SUPPLY</span>
                                                 <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4 dark:shadow-none' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
-                                                        <input value={totalSupplyValue} disabled className='border-none dark:bg-[rgb(30,31,34)]  dark:text-white outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {                           
+                                                        <input value={totalSupplyValue} disabled className='border-none dark:bg-[rgb(30,31,34)]  dark:text-white outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
                                                         }} />
                                                         <span className=' dark:text-white' style={{ marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
-                                                <span className=' text-[14px] ml-[55px] w-full items-start text-gray-500' style={{  fontFamily: 'Smack' }}>MAXIUM SUPPLY</span>
+                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[48%]'>
+                                                <span className=' text-[14px] ml-[25px] w-full items-start text-gray-500' style={{ fontFamily: 'Smack' }}>MAXIUM SUPPLY</span>
                                                 <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
-                                                        <input value={maxiumSupplyValue} disabled className='border-none dark:bg-[rgb(30,31,34)] dark:text-white outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {                           
+                                                        <input value={maxiumSupplyValue} disabled className='border-none dark:bg-[rgb(30,31,34)] dark:text-white outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
                                                         }} />
-                                                        <span className=' dark:text-white' style={{  marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                        <span className=' dark:text-white' style={{ marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,16 +140,16 @@ const HomePage = () => {
                                     </div>
 
 
-                                    <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] flex-col w-full'>
+                                    <div className='flex bg-[#fff] dark:bg-[rgb(36,37,38)] flex-col w-full'>
 
-                                        <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] px-8 items-center justify-between w-full mt-[0px]'>
+                                        <div className='flex bg-[#fff] dark:bg-[rgb(36,37,38)] px-6 items-center justify-between w-full mt-[0px]'>
                                             <span className=' dark:text-white' style={{ fontFamily: 'Might' }}>
                                                 Transfer
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-slate-300 dark:bg-gray-500  my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
-                                        <div className='flex flex-col items-center justify-center mb-2 w-[90%]  m-auto'>
+                                        <div className='flex bg-slate-300 dark:bg-gray-500  my-2 mx-auto items-center justify-between w-[100%] h-[1px]' />
+                                        <div className='flex flex-col items-center justify-center mb-2 w-[100%]  m-auto'>
                                             <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{ fontFamily: 'Smack' }}>To</span>
                                             <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)]  py-2 px-7 w-full' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
                                                 <div className='flex items-center justify-center'>
@@ -155,9 +159,9 @@ const HomePage = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className='flex flex-col items-center justify-center w-full sm:flex-row gap-4'>
-                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[45%]'>
-                                                <span className=' text-[14px] ml-[55px] w-full items-start text-gray-500' style={{  fontFamily: 'Smack' }}>AMOUNT</span>
+                                        <div className='flex flex-col items-center justify-between w-[100%] sm:flex-row'>
+                                            <div className='flex flex-col items-start justify-center md:w-80% mb-4 w-[60%]'>
+                                                <span className=' text-[14px] ml-[15px] w-full items-start text-gray-500' style={{ fontFamily: 'Smack' }}>AMOUNT</span>
                                                 <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
@@ -166,47 +170,54 @@ const HomePage = () => {
                                                                 setTransferValue(value);
                                                             }
                                                         }} />
-                                                        <span className=' dark:text-white' style={{  marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                        <span className=' dark:text-white' style={{ marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='flex flex-col items-center justify-center mb-4 w-[45%] mt-[23px]'>
-                                                <button onClick={() => console.log('1')} type="button" style={{ fontFamily: 'Might', fontSize: '20px' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
+                                            <div className='flex flex-col items-end justify-center mb-4 w-[35%] mt-[23px]'>
+                                                {/* <button onClick={() => console.log('1')} type="button" style={{ fontFamily: 'Might', fontSize: '20px' }} className="flex p-2 bg-[#256fc4] dark:bg-[rgb(22,22,22)] text-white items-center justify-center focus:outline-none rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
                                                     Transfer Now
-                                                </button>
+                                                </button> */}
+                                                <a onClick={() => console.log('1')} style={{ fontFamily: 'Might', fontSize: '20px', transition: '0.1s' }} class="relative rounded-[0.5rem] cursor-pointer group font-medium no-underline flex p-2 px-3 text-white items-center justify-center focus:outline-none">
+                                                    <span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"  ></span>
+                                                    <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                    <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                    <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-[#256fc4] from-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                    <span class="relative">Transfer Now</span>
+                                                </a>
                                             </div>
 
                                         </div>
 
                                     </div>
-                                    <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] flex-col w-full'>
+                                    <div className='flex bg-[#fff] dark:bg-[rgb(36,37,38)] flex-col w-full'>
 
-                                        <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] px-8 items-center justify-between w-full mt-[0px]'>
+                                        <div className='flex bg-[#fff] dark:bg-[rgb(36,37,38)] px-6 items-center justify-between w-full mt-[0px]'>
                                             <span className=' dark:text-white' style={{ fontFamily: 'Might' }}>
                                                 Staking
                                             </span>
                                         </div>
 
-                                        <div className='flex bg-slate-300 dark:bg-gray-500 my-2 mx-auto items-center justify-between w-[90%] h-[1px]' />
+                                        <div className='flex bg-slate-300 dark:bg-gray-500 my-2 mx-auto items-center justify-between w-[100%] h-[1px]' />
 
-                                        <div className='flex items-center justify-center w-full max-sm:flex-col gap-2'>
-                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[150px]'>
-                                                <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{  fontFamily: 'Smack' }}>TOTAL</span>
+                                        <div className='flex items-center justify-between w-full max-sm:flex-col'>
+                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[170px]'>
+                                                <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{ fontFamily: 'Smack' }}>TOTAL</span>
 
-                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-1.5 px-3' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
                                                         <input value={totalStakeAmount} disabled className='border-none dark:bg-[rgb(30,31,34)] dark:text-white outline-none appearance-none w-[90%]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
-                    
+
                                                         }} />
                                                         <span className=' dark:text-white' style={{ marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[150px]'>
-                                                <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{  fontFamily: 'Smack' }}>AMOUNT</span>
+                                            <div className='flex flex-col items-center justify-center md:w-80% mb-4 w-[170px]'>
+                                                <span className=' text-[14px] text-start items-start w-full ml-[25px] text-gray-500' style={{ fontFamily: 'Smack' }}>AMOUNT</span>
 
-                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-2 px-4' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
+                                                <div className='flex flex-col rounded-[0.5rem] bg-[#fff] dark:bg-[rgb(30,31,34)] py-1.5 px-3' style={{ boxShadow: 'rgb(109 177 255 / 98%) 0.5px 0.5px 3.5px 0.5px' }}>
 
                                                     <div className='flex flex-row items-center justify-center'>
                                                         <input value={stakeAmount} className='border-none outline-none appearance-none w-[90%] dark:text-white dark:bg-[rgb(30,31,34)]' type='text' inputMode='numeric' onChange={({ target: { value } }) => {
@@ -214,20 +225,27 @@ const HomePage = () => {
                                                                 setStakeAmount(value);
                                                             }
                                                         }} />
-                                                        <span className=' dark:text-white' style={{  marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
+                                                        <span className=' dark:text-white' style={{ marginLeft: '0.5rem', fontFamily: 'Smack', height: '1.9rem' }}>{selectedCurrency === 'ETH' ? 'ETH' : 'USD'}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='flex flex-col items-center justify-center mb-4 w-[150px] mt-[22px]'>
-                                                <button onClick={() => console.log('1')} type="button" style={{ fontFamily: 'Might', fontSize: '20px' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
+                                            <div className='flex flex-col items-center justify-center mb-4 w-[130px] mt-[22px]'>
+                                                {/* <button onClick={() => console.log('1')} type="button" style={{ fontFamily: 'Might', fontSize: '18px' }} className="flex p-2 bg-[#256fc4] dark:bg-[rgb(22,22,22)] text-white items-center justify-center focus:outline-none rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
                                                     Stake Now
-                                                </button>
+                                                </button> */}
+                                                <a onClick={() => console.log('1')} style={{ fontFamily: 'Might', fontSize: '20px', transition: '0.1s' }} class="relative rounded-[0.5rem] cursor-pointer group font-medium no-underline flex p-2 text-white items-center justify-center content-center focus:outline-none">
+                                                    <span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"  ></span>
+                                                    <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                    <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                    <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-[#256fc4] from-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                    <span class="relative">Stake Now</span>
+                                                </a>
                                             </div>
                                         </div>
 
 
                                     </div>
-                                    <div className='flex bg-[#fff] dark:bg-[rgb(43,45,49)] flex-col w-full items-center justify-center py-2 px-4 rounded-bottom-4 pb-2'>
+                                    <div className='flex bg-[#fff] dark:bg-[rgb(36,37,38)] flex-col w-full items-center justify-center py-2 px-4 rounded-bottom-4 pb-2'>
 
                                         <ConnectButton.Custom>
                                             {({
@@ -264,17 +282,35 @@ const HomePage = () => {
                                                         {(() => {
                                                             if (!connected) {
                                                                 return (
-                                                                    <button onClick={openConnectModal} type="button" style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem', transition: '0.1s' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
-                                                                        Connect Wallet
-                                                                    </button>
+                                                                    // <button onClick={openConnectModal} style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem', transition: '0.1s'}} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none dark:bg-[rgb(22,22,22)] rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
+                                                                    //     Connect Wallet
+                                                                    // </button>
+                                                                    // <a onClick={openConnectModal} style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem', transition: '0.1s'}} class="relative flex items-center justify-center no-underline px-5 py-2.5 overflow-hidden group bg-[#256fc4] dark:bg-[rgb(22,22,22)] hover:bg-gradient-to-r rounded-[0.5rem] w-full hover:from-[rgb(104,127,255)] dark:hover:from-[rgb(30,31,34)] dark:hover:to-[rgb(30,31,34)] hover:to-[rgb(71,98,248)] text-white hover:ring-2 hover:ring-offset-2 hover:ring-[rgb(71,98,248)] dark:hover:ring-[rgb(30,31,34)] transition-all ease-out duration-300">
+                                                                    //     <span class="absolute z-0 right-0 w-8 h-32 dark:hidden -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                                                                    //     <span class="relative">Button Text</span>
+                                                                    // </a>
+                                                                    <a onClick={openConnectModal} style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem', transition: '0.1s' }} class="relative rounded-[0.5rem] cursor-pointer group font-medium no-underline flex p-2 text-white items-center justify-center focus:outline-none">
+                                                                        <span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"  ></span>
+                                                                        <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                                        <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                                        <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-[#256fc4] from-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                                        <span class="relative">Connect Wallet</span>
+                                                                    </a>
                                                                 );
                                                             }
 
                                                             if (chain.unsupported) {
                                                                 return (
-                                                                    <button onClick={openChainModal} type="button">
-                                                                        Wrong network
-                                                                    </button>
+                                                                    // <button onClick={openChainModal} type="button">
+                                                                    //     Wrong network
+                                                                    // </button>
+                                                                    <a onClick={openChainModal} style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem', transition: '0.1s' }} class="relative rounded-[0.5rem] w-full cursor-pointer group font-medium no-underline flex p-2 text-white items-center justify-center focus:outline-none">
+                                                                        <span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"  ></span>
+                                                                        <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                                        <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                                        <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-[#256fc4] from-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                                        <span class="relative">Wrong network</span>
+                                                                    </a>
                                                                 );
                                                             }
 
@@ -309,9 +345,16 @@ const HomePage = () => {
                                                                         {chain.name}
                                                                     </button>
 
-                                                                    <button onClick={() => handleBuyButton(account.address, selectedCurrency)} type="button" style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none border rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
+                                                                    {/* <button onClick={() => handleBuyButton(account.address, selectedCurrency)} type="button" style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem' }} className="flex p-2 bg-[#256fc4] text-white items-center justify-center focus:outline-none dark:bg-[rgb(22,22,22)] rounded-[0.5rem] w-full hover:bg-[#6db1ff]">
                                                                         Buy Now
-                                                                    </button>
+                                                                    </button> */}
+                                                                    <a onClick={() => handleBuyButton(account.address, selectedCurrency)} style={{ fontFamily: 'Might', fontSize: '20px', marginBottom: '1rem', transition: '0.1s' }} class="relative rounded-[0.5rem] w-full cursor-pointer group font-medium no-underline flex p-2 text-white items-center justify-center focus:outline-none">
+                                                                        <span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"  ></span>
+                                                                        <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                                        <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-[#256fc4] to-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                                        <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-[#256fc4] from-[#256fc4] dark:from-[rgb(22,22,22)] dark:to-[rgb(22,22,22)]"></span>
+                                                                        <span class="relative">Buy Now</span>
+                                                                    </a>
 
                                                                     <button onClick={openAccountModal} className=' dark:text-white' type="button">
                                                                         {account.displayName}
