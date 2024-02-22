@@ -1,9 +1,11 @@
 
 .ant-modal-content {
     background-color: #328336 !important;
+    padding: 0px !important;
   }
   
   #antd{
+    opacity: 0;
     background-color: #328336 !important;
   }
 .ant-collapse-header-text{
