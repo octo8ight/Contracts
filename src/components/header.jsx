@@ -59,7 +59,7 @@ const Header = () => {
           <div className=''>
             <Switcher />
           </div>
-          <div
+          {/* <div
             style={{ display: "flex", gap: 12 }}
             className="flex flex-col items-center justify-center"
           >
@@ -132,7 +132,7 @@ const Header = () => {
                 );
               }}
             </ConnectButton.Custom>
-          </div>
+          </div> */}
         </nav>
 
         <div className="md:hidden sp-menu">
