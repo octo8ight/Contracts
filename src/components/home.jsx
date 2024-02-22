@@ -16,11 +16,11 @@ const HomePage = (props) => {
             </div>
 
             <div id="home" className="relative z-[2] dark:bg-[rgb(22,22,22)] transition-all">
-                <div className="h-[881px] flex justify-center items-center">
-                    <div className="w-full mx-auto main-visual flex flex-col items-center justify-start">
+                <div className="h-[881px] flex justify-center items-start">
+                    <div className="w-full mx-auto main-visual flex flex-wrap items-start justify-center">
                         {isModelPage ? <ModelPage/>
                            :
-                        <div className="w-full flex flex-row items-center justify-between main-visual mt-[-100px]">
+                        <div className="w-full flex flex-row items-center justify-between main-visual mt-[200px]">
                             <div className="w-[50%] md:max-w-[50%] ">
                                 {
                                     show && (
