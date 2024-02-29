@@ -1,131 +1,72 @@
-import { BrowserRouter } from "react-router-dom";
-import { Route } from "react-router-dom";
-import { Router } from "react-router-dom";
-import { Routes } from "react-router-dom";
-import React from "react";
-import HomePage from "./components/home";
-import Header from "./components/header";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@rainbow-me/rainbowkit/styles.css';
+import logo from './logo.svg';
+import './App.css';
+import React, { useMemo, useEffect, useState } from 'react';
+
 import {
-  RainbowKitProvider,
-  darkTheme,
-  connectorsForWallets
-} from '@rainbow-me/rainbowkit';
+  ConnectionProvider,
+  WalletProvider
+} from "@solana/wallet-adapter-react";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
-  rainbowWallet,
-  walletConnectWallet,
-  trustWallet,
-  coinbaseWallet,
-  okxWallet,
-  ledgerWallet,
-  metaMaskWallet
-} from '@rainbow-me/rainbowkit/wallets';
-import { configureChains, createConfig, sepolia, WagmiConfig } from 'wagmi';
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
-  zora,
-  goerli,
-} from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
-import ReactAudioPlayer from 'react-audio-player';
-import { ALCHEMY_API_KEY, PROJECT_ID } from "./utils/env";
+  GlowWalletAdapter,
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+  TorusWalletAdapter,
+  SkyWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
+import { WalletModalProvider, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
-const { chains, publicClient } = configureChains(
-  [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, goerli],
-  [
-    alchemyProvider({ apiKey: ALCHEMY_API_KEY }),
-    publicProvider()
-  ]
-);
+import { clusterApiUrl, Connection, PublicKey, Transaction } from "@solana/web3.js";
+import { createTransferCheckedInstruction, getAssociatedTokenAddress, getMint } from "@solana/spl-token";
+import '@solana/wallet-adapter-react-ui/styles.css';
+import { useWallet } from "@solana/wallet-adapter-react";
+import { getProgram } from "./utils/api";
 
-const projectId = PROJECT_ID;
+function App() {
+  const wallet = useWallet();
+  const tokenAddress = "Fi8Q7AV8Nr8fJy27j4QpnHe3iJCHHsPcYQ1TSUoi8A1J";
 
-const connectors = connectorsForWallets([
-  {
-    groupName: 'Recommended',
-    wallets: [
-      metaMaskWallet({ projectId, chains }), // Metamask
-      ...(projectId ? [walletConnectWallet({ projectId, chains })] : []),
-      ...(projectId ? [trustWallet({ projectId, chains })] : []),
-      // walletConnectWallet({ projectId, chains }),
-      // trustWallet({ projectId, chains }),
-      // Add more recommended wallets as needed
-    ],
-  },
-  {
-    groupName: 'Other',
-    wallets: [
-      ...(projectId ? [rainbowWallet({ projectId, chains })] : []),
-      ...(projectId ? [coinbaseWallet({ projectId, chains })] : []),
-      ...(projectId ? [okxWallet({ projectId, chains })] : []),
-      ...(projectId ? [ledgerWallet({ projectId, chains })] : []),
+  const network = WalletAdapterNetwork.Devnet;
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const connection = new Connection(endpoint);
 
-      // rainbowWallet({ projectId, chains }),
-      // coinbaseWallet({ projectId, chains }),
-      // okxWallet({ projectId, chains }),
-      // ledgerWallet({ projectId, chains }),
-      // Add other wallets to the "Other" group
-    ],
-  },
-]);
+  const wallets = [
+    new GlowWalletAdapter(),
+    new PhantomWalletAdapter(),
+    new SolflareWalletAdapter(),
+    new TorusWalletAdapter(),
+    new SkyWalletAdapter(),
+  ];
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient
-})
+  useEffect(() => {
+    const getData = async () => {
+      const res = await getProgram(wallet, endpoint);
+      console.log(res);  
+    }
+    getData();
+  }, [endpoint, wallet]);
 
-const App = () => {
-
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const handleLoad = () => {
-      setIsLoading(false);
-    };
-  
-    window.addEventListener('load', handleLoad);
-  
-    return () => {
-      // Cleanup: Remove the event listener when the component unmounts
-      window.removeEventListener('load', handleLoad);
-    };
-  }, []);
-
-  return  (
-    <>
-      <ReactAudioPlayer
-        src="/audio/mix.mp3"
-        autoPlay
-        type="audio/mp3"
-        title="audio"
-      />
-
-      <WagmiConfig config={wagmiConfig}>
-
-        <RainbowKitProvider chains={chains} coolMode theme={darkTheme()}>
-          <BrowserRouter>
-            <Header />
-            <div className="relative bg-white h-max">
-
-              <HomePage />
-
-            </div>
-
-          </BrowserRouter>
-
-        </RainbowKitProvider>
-
-      </WagmiConfig>
-
-    </>
-  )
+  return (
+    <div className="App">
+      <div className="container">
+        <div className="header-container">
+          <p className="header">🖼 Solana GIF Friends</p> 
+          <p className="sub-text">
+            View your beautiful GIFs on Solana! 🪐
+          </p>
+        </div>
+        <div className="footer-container">
+          <ConnectionProvider endpoint={endpoint}>
+            <WalletProvider wallets={wallets}>
+              <WalletModalProvider>
+                <WalletMultiButton />
+              </WalletModalProvider>
+            </WalletProvider>
+          </ConnectionProvider>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
